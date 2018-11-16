@@ -8,60 +8,35 @@ namespace TicTacToe
 {
     class Program
     {
-        private static char[,] ttt = new char[,]
+        private static readonly char[,] ttt = new char[,]
             {
                 {'1', '2', '3' },
                 {'4', '5', '6' },
                 {'7', '8', '9' }
             };
+
+        private static char[,] clone = new char[,]
+            {
+                {'1', '2', '3' },
+                {'4', '5', '6' },
+                {'7', '8', '9' }
+            };
+
+        private static int player = 1;
+
 
         static void Main(string[] args)
         {
-            char[,] clone = new char[,]
-            {
-                {'1', '2', '3' },
-                {'4', '5', '6' },
-                {'7', '8', '9' }
-            };
+            
             string input;
-            bool exit = true, isValid;
-            int player = 1;
 
             do
             {
-                DrawBoard(clone);
-                if (CheckWinner(clone, 'X') == 1)
-                {
-                    Console.WriteLine("Congradulation! Player 1 wins!");
-                    Console.WriteLine("Press any key to play again.");
-                    Console.ReadKey();
-                    for (int i = 0; i < 3; i++)
-                        for (int j = 0; j < 3; j++)
-                            clone[i, j] = ttt[i, j];
-                    DrawBoard(clone);
-                    player = 1;
-                }
-                else if (CheckWinner(clone, 'O') == 1)
-                {
-                    Console.WriteLine("Congradulation! Player 2 wins!");
-                    Console.WriteLine("Press any key to play again.");
-                    Console.ReadKey();
-                    for (int i = 0; i < 3; i++)
-                        for (int j = 0; j < 3; j++)
-                            clone[i, j] = ttt[i, j];
-                    DrawBoard(clone);
-                    player = 1;
-                }
-                else if (CheckWinner(clone, 'X') == 2)
-                {
-                    Console.WriteLine("It's a tie! No winners!");
-                    Console.WriteLine("Press any key to play again.");
-                    Console.ReadKey();
-                    clone = ttt;
-                    DrawBoard(clone);
-                    player = 1;
-                }
-                if(player % 2 == 1)
+                DrawBoard();
+                CheckWinner('X', 1);
+                CheckWinner('O', 2);
+                
+                if (player % 2 == 1)
                     Console.Write("Player 1: Choose your field! ");
                 else
                     Console.Write("Player 2: Choose your field! ");
@@ -69,143 +44,44 @@ namespace TicTacToe
 
                 switch (input)
                 {
-                    case "1":
-                        isValid = CheckBoard(clone, 0, 0);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[0, 0] = 'X';
-                            else
-                                clone[0, 0] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "2":
-                        isValid = CheckBoard(clone, 0, 1);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[0, 1] = 'X';
-                            else
-                                clone[0, 1] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "3":
-                        isValid = CheckBoard(clone, 0, 2);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[0, 2] = 'X';
-                            else
-                                clone[0, 2] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "4":
-                        isValid = CheckBoard(clone, 1, 0);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[1, 0] = 'X';
-                            else
-                                clone[1, 0] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "5":
-                        isValid = CheckBoard(clone, 1, 1);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[1, 1] = 'X';
-                            else
-                                clone[1, 1] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case 6:
-                        isValid = CheckBoard(clone, 1, 2);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[1, 2] = 'X';
-                            else
-                                clone[1, 2] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "7":
-                        isValid = CheckBoard(clone, 2, 0);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[2, 0] = 'X';
-                            else
-                                clone[2, 0] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "8":
-                        isValid = CheckBoard(clone, 2, 1);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[2, 1] = 'X';
-                            else
-                                clone[2, 1] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
-                    case "9":
-                        isValid = CheckBoard(clone, 2, 2);
-                        if (isValid)
-                        {
-                            if (player % 2 == 1)
-                                clone[2, 2] = 'X';
-                            else
-                                clone[2, 2] = 'O';
-                        }
-                        else
-                            player--;
-                        break;
+                    case "1": CheckBoard(0, 0); break;
+                    case "2": CheckBoard(0, 1); break;
+                    case "3": CheckBoard(0, 2); break;
+                    case "4": CheckBoard(1, 0); break;
+                    case "5": CheckBoard(1, 1); break;
+                    case "6": CheckBoard(1, 2); break;
+                    case "7": CheckBoard(2, 0); break;
+                    case "8": CheckBoard(2, 1); break;
+                    case "9": CheckBoard(2, 2); break;
                     //input is invalid
                     default:
                         Console.WriteLine("Invalid field! Press any key to continue... ");
                         Console.ReadKey();
-                        player--;
                         break;
                 }
-                player++;
-            } while (exit);
-
-            Console.ReadKey();
+            } while (true);
         }
 
-        public static bool CheckBoard(char[,] clone, int x, int y)
+        public static void CheckBoard(int x, int y)
         {
-
             if (clone[x, y] == 'O' || clone[x, y] == 'X')
             {
                 Console.WriteLine("This field has already been taken! Press any key to continue... ");
                 Console.ReadKey();
-                return false;
             }
             else
-                return true;
+            {
+                if (player % 2 == 1)
+                    clone[x, y] = 'X';
+                else
+                    clone[x, y] = 'O';
+                player++;
+            }
         }
 
-        public static int CheckWinner(char[,] clone, char s)
+        public static void CheckWinner(char s, int p)
         {
-            if ((clone[0,0] == s && clone[0,1] == s && clone[0,2] == s) 
+            if ((clone[0, 0] == s && clone[0, 1] == s && clone[0, 2] == s)
                 || (clone[1, 0] == s && clone[1, 1] == s && clone[1, 2] == s)
                 || (clone[2, 0] == s && clone[2, 1] == s && clone[2, 2] == s)
                 || (clone[0, 0] == s && clone[1, 0] == s && clone[2, 0] == s)
@@ -213,13 +89,29 @@ namespace TicTacToe
                 || (clone[0, 2] == s && clone[1, 2] == s && clone[2, 2] == s)
                 || (clone[0, 0] == s && clone[1, 1] == s && clone[2, 2] == s)
                 || (clone[0, 2] == s && clone[1, 1] == s && clone[2, 0] == s))
-                return 1;
+            {
+                Console.WriteLine("Congradulation! Player {0} wins!", p);
+                Console.WriteLine("Press any key to play again.");
+                Console.ReadKey();
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        clone[i, j] = ttt[i, j];
+                DrawBoard();
+                player = 1;
+            }
             else if (clone[0, 0] != '1' && clone[0, 1] != '2' && clone[0, 2] != '3' &&
                 clone[1, 0] != '4' && clone[1, 1] != '5' && clone[1, 2] != '6' &&
                 clone[2, 0] != '7' && clone[2, 1] != '8' && clone[2, 2] != '9')
-                return 2;
-            else
-                return 3;
+            {
+                Console.WriteLine("It's a tie! No winners!");
+                Console.WriteLine("Press any key to play again.");
+                Console.ReadKey();
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        clone[i, j] = ttt[i, j];
+                DrawBoard();
+                player = 1;
+            }
         }
 
         public static void DrawBoard(char[,] clone)
