@@ -23,7 +23,7 @@ namespace TicTacToe
                 {'4', '5', '6' },
                 {'7', '8', '9' }
             };
-            char input;
+            string input;
             bool exit = true, isValid;
             int player = 1;
 
@@ -69,7 +69,7 @@ namespace TicTacToe
 
                 switch (input)
                 {
-                    case 1:
+                    case "1":
                         isValid = CheckBoard(clone, 0, 0);
                         if (isValid)
                         {
@@ -81,7 +81,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 2:
+                    case "2":
                         isValid = CheckBoard(clone, 0, 1);
                         if (isValid)
                         {
@@ -93,7 +93,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 3:
+                    case "3":
                         isValid = CheckBoard(clone, 0, 2);
                         if (isValid)
                         {
@@ -105,7 +105,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case '4':
+                    case "4":
                         isValid = CheckBoard(clone, 1, 0);
                         if (isValid)
                         {
@@ -117,7 +117,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 5:
+                    case "5":
                         isValid = CheckBoard(clone, 1, 1);
                         if (isValid)
                         {
@@ -141,7 +141,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 7:
+                    case "7":
                         isValid = CheckBoard(clone, 2, 0);
                         if (isValid)
                         {
@@ -153,7 +153,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 8:
+                    case "8":
                         isValid = CheckBoard(clone, 2, 1);
                         if (isValid)
                         {
@@ -165,7 +165,7 @@ namespace TicTacToe
                         else
                             player--;
                         break;
-                    case 9:
+                    case "9":
                         isValid = CheckBoard(clone, 2, 2);
                         if (isValid)
                         {
